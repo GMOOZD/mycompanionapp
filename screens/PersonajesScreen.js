@@ -1,50 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, Image, FlatList, Pressable, Linking, StyleSheet } from 'react-native';
 
-const games = [
+const Personajes = [
   {
-    title: "Elastic Man",
-    url: "https://gamaverse.com/elastic-man-game/",
-    description: "Estira la cara de Morty de forma infinita.",
-    imagen: require('../assets/010.png'),
+    nombre: "Rick Sánchez",
+    descripcion: "Un científico alcohólico y genio, siempre metido en problemas interdimensionales.",
+    imagen: { uri: "https://rickandmortyapi.com/api/character/avatar/1.jpeg" },
+    url: "https://rickandmorty.fandom.com/wiki/Rick_Sanchez"
   },
   {
-    title: "Rick and Morty: RAM Old School",
-    url: "https://judgeking.itch.io/ram-old-school",
-    description: "Una aventura retro estilo arcade con Rick y Morty.",
-    imagen: require('../assets/020.png'),
+    nombre: "Morty Smith",
+    descripcion: "Nieto de Rick, nervioso pero de buen corazón, acompaña a su abuelo en aventuras.",
+    imagen: { uri: "https://rickandmortyapi.com/api/character/avatar/2.jpeg" },
+    url: "https://rickandmorty.fandom.com/wiki/Morty_Smith"
   },
-  // Agrega los demás juegos igual, usando require si las imágenes están locales
+  // ...otros personajes igual
 ];
 
 export default function PersonajesScreen() {
-  const [hoverIndex, setHoverIndex] = useState(null);
+  const openLink = (url) => Linking.openURL(url);
 
-  const openLink = (url) => {
-    Linking.openURL(url);
-  };
-
-  const renderItem = ({ item, index }) => (
+  const renderItem = ({ item }) => (
     <Pressable
       onPress={() => openLink(item.url)}
-      onHoverIn={() => setHoverIndex(index)}
-      onHoverOut={() => setHoverIndex(null)}
-      style={[
-        styles.card,
-        hoverIndex === index && styles.cardHover
-      ]}
+      style={styles.card}
     >
       <Image source={item.imagen} style={styles.img} resizeMode="cover" />
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.description}>{item.description}</Text>
+      <Text style={styles.title}>{item.nombre}</Text>
+      <Text style={styles.description}>{item.descripcion}</Text>
     </Pressable>
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Juegos Rick and Morty</Text>
+      <Text style={styles.header}>Personajes Rick and Morty</Text>
       <FlatList
-        data={games}
+        data={Personajes}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         numColumns={2}
@@ -76,10 +67,6 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 4 },
     alignItems: 'center'
-  },
-  cardHover: {
-    shadowOpacity: 0.9,
-    transform: [{ scale: 1.05 }]
   },
   img: {
     width: '100%',
