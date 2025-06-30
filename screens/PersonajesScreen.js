@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 10
   },
+  
   title: {
     color: '#00ffcc',
     fontSize: 16,
