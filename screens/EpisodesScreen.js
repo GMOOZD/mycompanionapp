@@ -1,161 +1,109 @@
-// screens/EpisodesScreen.js (o renómbralo a EventsScreen.js si deseas)
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  ImageBackground,
-} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
+import axios from 'axios';
 
-const EVENTS = [
-  { id: '1', name: 'Wormageddon, Summer MALVADA', date: 'Sep 5th 2025', type: 'upcoming' },
-  { id: '2', name: 'Smoky Mountain Fan Fest', date: 'Sep 5th 2025', type: 'upcoming' },
-  { id: '3', name: 'GalaxyCon Raleigh 2025', date: 'Sep 5th 2025', type: 'upcoming' },
-  { id: '4', name: 'Comic Con Revolution Ontario', date: 'Aug 20th 2025', type: 'past' },
-  // Agrega más eventos aquí
-];
+// Asegúrate de que esta pantalla reciba 'route' si necesitas parámetros como el ID de la temporada
+export default function EpisodiesScreen({ route }) {
+  const [episodes, setEpisodes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { seasonId } = route.params || {}; // Por ejemplo, si pasas seasonId
 
-export default function EpisodesScreen() {
-  const [filter, setFilter] = useState('upcoming'); // Estado para filtrar
+  useEffect(() => {
+    // Ejemplo de cómo podrías hacer la llamada a la API de episodios
+    // Si necesitas el seasonId, lo usarías aquí.
+    // Ejemplo de URL: `https://mock.apidog.com/m1/912109-894454-default/seasons/${seasonId}/episodes`
+    const apiUrl = seasonId
+      ? `https://mock.apidog.com/m1/912109-894454-default/seasons/${seasonId}/episodes`
+      : 'https://mock.apidog.com/m1/912109-894454-default/episodes'; // URL de ejemplo para todos los episodios si no hay seasonId
 
-  const filteredEvents = EVENTS.filter(event => event.type === filter);
+    axios.get(apiUrl)
+      .then(response => {
+        setEpisodes(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error al obtener los episodios:", error);
+        setLoading(false);
+      });
+  }, [seasonId]); // Se ejecuta cuando seasonId cambia
+
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color="#a3e635" />
+        <Text style={styles.loadingText}>Cargando episodios...</Text>
+      </View>
+    );
+  }
 
   return (
-    <ImageBackground
-      source={require('../assets/background.png')}
-      style={styles.background}
-    >
-      <View style={styles.container}>
-        <Text style={styles.title}>EVENTOS</Text>
-
-        {/* Filtros */}
-        <View style={styles.filterContainer}>
-          <TouchableOpacity
-            style={[
-              styles.filterButton,
-              filter === 'upcoming' && styles.activeFilter,
-            ]}
-            onPress={() => setFilter('upcoming')}
-          >
-            <Text style={styles.filterText}>🟢 PRÓXIMOS EVENTOS</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[
-              styles.filterButton,
-              filter === 'past' && styles.activeFilter,
-            ]}
-            onPress={() => setFilter('past')}
-          >
-            <Text style={styles.filterText}>🔵 EVENTOS PASADOS</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Lista de eventos */}
+    <View style={styles.container}>
+      <Text style={styles.title}>Episodios {seasonId ? `de Temporada ${seasonId}` : ''}</Text>
+      {episodes.length === 0 ? (
+        <Text style={styles.noDataText}>No se encontraron episodios.</Text>
+      ) : (
         <FlatList
-          data={filteredEvents}
-          keyExtractor={item => item.id}
+          data={episodes}
+          keyExtractor={(item) => item.episode_number.toString()}
           renderItem={({ item }) => (
-            <View style={styles.eventItem}>
-              <Text style={styles.eventDate}>{item.date}</Text>
-              <Text style={styles.eventName}>{item.name}</Text>
+            <View style={styles.card}>
+              <Text style={styles.cardTitle}>Episodio {item.episode_number}: {item.name}</Text>
+              <Text style={styles.cardText}>Fecha de emisión: {item.air_date}</Text>
+              {item.overview && <Text style={styles.cardText}>Sinopsis: {item.overview}</Text>}
             </View>
           )}
-          contentContainerStyle={styles.list}
         />
-
-        {/* Botones adicionales */}
-        <TouchableOpacity style={styles.mainButton}>
-          <Text style={styles.mainButtonText}>ORGANIZA TU EVENTO</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.secondaryButton}>
-          <Text style={styles.secondaryButtonText}>ÚNETE A LA COMUNIDAD</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-  },
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#111', // Fondo oscuro
   },
   title: {
+    color: '#a3e635', // Color similar al de tu barra de pestañas
     fontSize: 28,
-    color: '#a3e635',
-    fontWeight: 'bold',
+    marginBottom: 15,
     textAlign: 'center',
-    marginBottom: 20,
-  },
-  filterContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 20,
-  },
-  filterButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    borderRadius: 20,
-    backgroundColor: '#222',
-  },
-  activeFilter: {
-    backgroundColor: '#a3e635',
-  },
-  filterText: {
-    color: '#fff',
     fontWeight: 'bold',
   },
-  list: {
-    paddingBottom: 30,
-  },
-  eventItem: {
-    backgroundColor: 'rgba(0,255,170,0.15)',
-    borderColor: '#00ffaa',
-    borderWidth: 1,
-    borderRadius: 12,
-    padding: 15,
-    marginBottom: 12,
-  },
-  eventDate: {
-    color: '#a3e635',
-    fontSize: 14,
-    marginBottom: 4,
-  },
-  eventName: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  mainButton: {
-    backgroundColor: '#a3e635',
-    padding: 14,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  mainButtonText: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  secondaryButton: {
-    borderWidth: 2,
+  card: {
     borderColor: '#a3e635',
-    padding: 14,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginTop: 12,
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 15,
+    marginVertical: 8,
+    backgroundColor: 'rgba(163, 230, 53, 0.1)', // Fondo semi-transparente del color de la barra
   },
-  secondaryButtonText: {
-    color: '#a3e635',
+  cardTitle: {
+    color: '#fff',
+    fontSize: 18,
     fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  cardText: {
+    color: '#ccc',
+    fontSize: 16,
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#111',
+  },
+  loadingText: {
+    color: '#a3e635',
+    marginTop: 10,
+    fontSize: 18,
+  },
+  noDataText: {
+    color: '#ccc',
+    textAlign: 'center',
+    marginTop: 50,
     fontSize: 16,
   },
 });
