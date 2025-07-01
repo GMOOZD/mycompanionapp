@@ -230,13 +230,14 @@ export default function ProfilesScreen() {
           </View>
           <View style={styles.character}>
             <Image source={require('../assets/pers4.png')} style={styles.characterImg} />
-            <Text style={styles.characterName}>VERANO SMITH</Text>
+            <Text style={styles.characterName}>BETH SMITH</Text>
           </View>
         </View>
         <TouchableOpacity
           style={styles.startButton}
           onPress={() => {
             Haptics.selectionAsync();
+            console.log('¡Vibración ejecutada!');
             setStarted(true);
           }}
         >
