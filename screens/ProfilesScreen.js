@@ -8,6 +8,7 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
+import * as Haptics from 'expo-haptics';
 
 const questions = [
   {
@@ -232,7 +233,13 @@ export default function ProfilesScreen() {
             <Text style={styles.characterName}>VERANO SMITH</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.startButton} onPress={() => setStarted(true)}>
+        <TouchableOpacity
+          style={styles.startButton}
+          onPress={() => {
+            Haptics.selectionAsync();
+            setStarted(true);
+          }}
+        >
           <Text style={styles.startButtonText}>START TEST</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -302,7 +309,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#a3e635',
     paddingVertical: 12,
     paddingHorizontal: 30,
-    borderRadius: 25,
+    borderRadius: 8,
     marginVertical: 10,
   },
   startButtonText: {
