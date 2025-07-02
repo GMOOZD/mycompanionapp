@@ -14,7 +14,36 @@ const Personajes = [
     imagen: { uri: "https://rickandmortyapi.com/api/character/avatar/2.jpeg" },
     url: "https://rickandmorty.fandom.com/wiki/Morty_Smith"
   },
-  // ...otros personajes igual
+{
+    "nombre": "Summer Smith",
+    "descripcion": "Hermana mayor de Morty, a menudo sarcástica y más madura de lo que parece, a veces se une a las aventuras.",
+    "imagen": { "uri": "https://rickandmortyapi.com/api/character/avatar/3.jpeg" },
+    "url": "https://rickandmorty.fandom.com/wiki/Summer_Smith"
+  },
+  {
+    "nombre": "Beth Smith",
+    "descripcion": "Hija de Rick y madre de Morty y Summer, es una cirujana de caballos que lidia con el legado de su padre.",
+    "imagen": { "uri": "https://rickandmortyapi.com/api/character/avatar/4.jpeg" },
+    "url": "https://rickandmorty.fandom.com/wiki/Beth_Smith"
+  },
+  {
+    "nombre": "Jerry Smith",
+    "descripcion": "Esposo de Beth y padre de Morty y Summer, a menudo inseguro y desempleado, es la antítesis de Rick.",
+    "imagen": { "uri": "https://rickandmortyapi.com/api/character/avatar/5.jpeg" },
+    "url": "https://rickandmorty.fandom.com/wiki/Jerry_Smith"
+  },
+  {
+    "nombre": "Mr. Meeseeks",
+    "descripcion": "Criaturas azules convocadas para cumplir una única tarea, desapareciendo una vez completada.",
+    "imagen": { "uri": "https://rickandmortyapi.com/api/character/avatar/11.jpeg" },
+    "url": "https://rickandmorty.fandom.com/wiki/Mr._Meeseeks"
+  },
+  {
+    "nombre": "Birdperson",
+    "descripcion": "Un guerrero alado y el mejor amigo de Rick, con una perspectiva filosófica sobre la vida y el universo.",
+    "imagen": { "uri": "https://rickandmortyapi.com/api/character/avatar/8.jpeg" },
+    "url": "https://rickandmorty.fandom.com/wiki/Birdperson"
+  }
 ];
 
 export default function PersonajesScreen() {

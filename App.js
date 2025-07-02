@@ -16,9 +16,9 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   useEffect(() => {
     if (Platform.OS === 'android') {
-      console.log('✅ Ejecutando en Android');
+      console.log(' Ejecutando en Android');
     } else {
-      console.log('⚠️ Esta app está diseñada para Android, pero se está ejecutando en:', Platform.OS);
+      console.log(' Esta app está diseñada para Android, pero se está ejecutando en:', Platform.OS);
     }
   }, []);
 
