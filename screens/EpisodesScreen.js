@@ -11,10 +11,10 @@ export default function EpisodiesScreen({ route }) {
   useEffect(() => {
     // Ejemplo de cómo podrías hacer la llamada a la API de episodios
     // Si necesitas el seasonId, lo usarías aquí.
-    // Ejemplo de URL: `https://mock.apidog.com/m1/912109-894454-default/seasons/${seasonId}/episodes`
+   
     const apiUrl = seasonId
       ? `https://mock.apidog.com/m1/912109-894454-default/seasons/${seasonId}/episodes`
-      : 'https://mock.apidog.com/m1/912109-894454-default/episodes'; // URL de ejemplo para todos los episodios si no hay seasonId
+      : 'https://mock.apidog.com/m1/912109-894454-default/episodes'; 
 
     axios.get(apiUrl)
       .then(response => {
@@ -25,8 +25,7 @@ export default function EpisodiesScreen({ route }) {
         console.error("Error al obtener los episodios:", error);
         setLoading(false);
       });
-  }, [seasonId]); // Se ejecuta cuando seasonId cambia
-
+  }, [seasonId]); 
   if (loading) {
     return (
       <View style={styles.center}>
@@ -62,10 +61,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#111', // Fondo oscuro
+    backgroundColor: '#111',
   },
   title: {
-    color: '#a3e635', // Color similar al de tu barra de pestañas
+    color: '#a3e635', 
     fontSize: 28,
     marginBottom: 15,
     textAlign: 'center',
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     marginVertical: 8,
-    backgroundColor: 'rgba(163, 230, 53, 0.1)', // Fondo semi-transparente del color de la barra
+    backgroundColor: 'rgba(163, 230, 53, 0.1)',
   },
   cardTitle: {
     color: '#fff',
