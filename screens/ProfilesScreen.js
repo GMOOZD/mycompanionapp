@@ -230,7 +230,7 @@ export default function ProfilesScreen() {
           </View>
           <View style={styles.character}>
             <Image source={require('../assets/pers4.png')} style={styles.characterImg} />
-            <Text style={styles.characterName}>BETH SMITH</Text>
+            <Text style={styles.characterName}>SUMMER SMITH</Text>
           </View>
         </View>
         <TouchableOpacity

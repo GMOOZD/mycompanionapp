@@ -14,7 +14,7 @@ const games = [
     description: "Una aventura retro estilo arcade con Rick y Morty.",
     imagen: require('../assets/020.png'),
   },
-  // Agrega los demás juegos igual, usando require si las imágenes están locales
+  
 ];
 
 export default function GamesScreen() {

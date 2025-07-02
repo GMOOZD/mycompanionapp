@@ -10,13 +10,13 @@ export default function EpisodesScreen({ navigation }) {
   useEffect(() => {
     API.get('/temporadas')
       .then(res => {
-        console.log('✅ Temporadas recibidas:', res.data);
+        console.log(' Temporadas recibidas:', res.data);
         const datos = res.data.temporadas || res.data;
         setSeasons(datos);
         setLoading(false);
       })
       .catch(err => {
-        console.error('❌ Error al cargar temporadas:', err);
+        console.error(' Error al cargar temporadas:', err);
         setLoading(false);
       });
   }, []);

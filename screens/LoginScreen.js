@@ -26,7 +26,7 @@ export default function LoginScreen() {
     navigation.navigate('MainTabs', {
       screen: 'Inicio',
       params: {
-        screen: 'Bienvenido', // <- apunta al screen del Drawer
+        screen: 'Bienvenido', 
       },
     });
   };

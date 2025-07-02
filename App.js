@@ -8,7 +8,6 @@ import MainTabs from './navigation/MainTabs';
 import SeasonsScreen from './screens/SeasonsScreen';
 import SeasonDetailScreen from './screens/SeasonDetailScreen';
 
-// 👇 Importa el contexto del carrito
 import { CartProvider } from './context/CartContext';
 
 const Stack = createNativeStackNavigator();
@@ -23,7 +22,7 @@ export default function App() {
   }, []);
 
   return (
-    // 👇 Envuelve toda tu app en el CartProvider
+
     <CartProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
